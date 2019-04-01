@@ -1,0 +1,53 @@
+version: '2.1'
+
+services:
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "${DATA_PATH}/mysql_data:/var/lib/mysql"
+      - "${DATA_PATH}/init.sql:/init.sql"
+    restart: always
+    container_name: "${COMPOSE_PROJECT_NAME}_mysql"
+    logging:
+      driver: none
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+
+# docker run --name guacd -d guacamole/guacd
+  guacd:
+    image: guacamole/guacd
+    container_name: "${COMPOSE_PROJECT_NAME}_guacd"
+    restart: always
+
+#docker run --name guacamole     --link guacd:guacd         -d -p 8081:8080 guacamole/guacamole
+  guacamole:
+    image: guacamole/guacamole
+    container_name: "${COMPOSE_PROJECT_NAME}_guacamole"
+    logging:
+      driver: none
+    links:
+      - guacd
+    ports:
+      -  "${HTTP_IP}:${HTTP_PORT}:8080"
+    depends_on:
+#      - mysql
+      - guacd
+
+    environment:
+      GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: mysql
+# Required environment variables
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+    volumes:
+      - "${DATA_PATH}/init.sql:/init.sql"
+    logging:
+      driver: none
+
