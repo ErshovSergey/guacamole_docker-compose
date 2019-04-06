@@ -32,9 +32,9 @@ docker exec -i -t guacamole_mysql bash -c 'mysql -uroot -p${MYSQL_ROOT_PASSWORD}
 
 ### Логин и пароль по умолчанию *guacadmin*  
 
-### Второй фактор для пользователей
-Необходимо поместить plegin в папку *${DATA_PATH}/extensions*
-Для версии 1.0.0
+### Второй фактор для пользователей  
+Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*  
+Для версии 1.0.0  
 ```
 wget http://mirror.linux-ia64.org/apache/guacamole/1.0.0/binary/guacamole-auth-totp-1.0.0.tar.gz
 tar -xzvf guacamole-auth-totp-1.0.0.tar.gz
