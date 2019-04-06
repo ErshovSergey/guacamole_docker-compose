@@ -30,14 +30,26 @@ docker exec -i -t guacamole_guacamole bash -c "/opt/guacamole/bin/initdb.sh --my
 docker exec -i -t guacamole_mysql bash -c 'mysql -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /init.sql/initdb.sql'
 ```
 
-### Логин и пароль по умолчанию *guacadmin*  
+### Логин и пароль по умолчанию *guacadmin*
 
-### Второй фактор для пользователей  
-Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*  
-Для версии 1.0.0  
+### Второй фактор TOTP для пользователей
+Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*
+Для версии 1.0.0
 ```
 wget http://mirror.linux-ia64.org/apache/guacamole/1.0.0/binary/guacamole-auth-totp-1.0.0.tar.gz
 tar -xzvf guacamole-auth-totp-1.0.0.tar.gz
-mv guacamole-auth-totp-1.0.0/guacamole-auth-totp-1.0.0.jar ${DATA_PATH}/extensions/
+mv guacamole-auth-totp-1.0.0/guacamole-auth-totp-1.0.0.jar ${DATA_PATH}/GUACAMOLE_HOME/extensions/
 rm -rf guacamole-auth-totp-1.0.0*
 ```
+
+### Использование Duo
+Регистрируемся на [duosecurity.com](https://duosecurity.com/).  
+Для версии 1.0.0  
+```
+wget http://apache-mirror.rbc.ru/pub/apache/guacamole/1.0.0/binary/guacamole-auth-duo-1.0.0.tar.gz
+tar -xzvf guacamole-auth-duo-1.0.0.tar.gz
+mv guacamole-auth-duo-1.0.0/guacamole-auth-duo-1.0.0.jar ${DATA_PATH}/GUACAMOLE_HOME/extensions/
+rm -rf guacamole-auth-duo-1.0.0*
+```
+Настраиваем по [Duo two-factor authentication](http://guacamole.apache.org/doc/gug/duo-auth.html).  
+Файл *guacamole.properties* помещаем в ${DATA_PATH}/GUACAMOLE_HOME/.  
