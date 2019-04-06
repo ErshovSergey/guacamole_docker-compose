@@ -41,6 +41,7 @@ services:
     environment:
       GUACD_HOSTNAME: guacd
       MYSQL_HOSTNAME: mysql
+      GUACAMOLE_HOME: "/opt/GUACAMOLE_HOME"
 # Required environment variables
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -48,6 +49,7 @@ services:
     restart: always
     volumes:
       - "${DATA_PATH}/init.sql:/init.sql"
+      - "${DATA_PATH}/extensions:/opt/GUACAMOLE_HOME/extensions"
     logging:
       driver: none
 
