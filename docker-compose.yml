@@ -22,14 +22,16 @@ services:
   guacd:
     image: guacamole/guacd
     container_name: "${COMPOSE_PROJECT_NAME}_guacd"
+    volumes:
+      - "${DATA_PATH}/record_session:/opt/record_session"
     restart: always
+#    logging:
+#      driver: none
 
 #docker run --name guacamole     --link guacd:guacd         -d -p 8081:8080 guacamole/guacamole
   guacamole:
     image: guacamole/guacamole
     container_name: "${COMPOSE_PROJECT_NAME}_guacamole"
-    logging:
-      driver: none
     links:
       - guacd
     ports:
@@ -50,7 +52,6 @@ services:
     volumes:
       - "${DATA_PATH}/init.sql:/init.sql"
       - "${DATA_PATH}/GUACAMOLE_HOME:/opt/GUACAMOLE_HOME"
-    logging:
-      driver: none
+#    logging:
+#      driver: none
 
- 
