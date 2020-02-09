@@ -30,7 +30,9 @@ docker exec -i -t guacamole_guacamole bash -c "/opt/guacamole/bin/initdb.sh --my
 docker exec -i -t guacamole_mysql bash -c 'mysql -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /init.sql/initdb.sql'
 ```
 
-### Логин и пароль по умолчанию *guacadmin*
+### Первый вход 
+Ссылка http://ip_addr/guacamole/   
+Логин и пароль по умолчанию *guacadmin*  
 
 ### Второй фактор TOTP для пользователей
 Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*
