@@ -58,4 +58,6 @@ rm -rf guacamole-auth-duo-1.0.0*
 
 ### Изменение логотипа и надписи
 Поместить branding.jar в <GUACAMOLE_HOME>/extensions/  
+Надпись меняется в branding\translations\en.json.  
+Логотип - файл branding\images\logo-placeholder.png.  
 По [мотивам](https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension)
