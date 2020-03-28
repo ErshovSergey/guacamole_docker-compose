@@ -55,3 +55,7 @@ rm -rf guacamole-auth-duo-1.0.0*
 ```
 Настраиваем по [Duo two-factor authentication](http://guacamole.apache.org/doc/gug/duo-auth.html).  
 Файл *guacamole.properties* помещаем в ${DATA_PATH}/GUACAMOLE_HOME/.  
+
+### Изменение логотипа и надписи
+Поместить branding.jar в <GUACAMOLE_HOME>/extensions/  
+По [мотивам](https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension)
