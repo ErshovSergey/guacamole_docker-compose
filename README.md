@@ -58,15 +58,32 @@ rm -rf guacamole-auth-duo-1.0.0*
 
 ### Авторизация из MS Active Directory
 Заполнить в *.env* параметры
+```
 LDAP_HOSTNAME=192.168.XX.YY
 LDAP_USER_BASE_DN=DC=org,DC=company,DC=ru
 LDAP_GROUP_BASE_DN=DC=org,DC=company,DC=ru
 LDAP_SEARCH_BIND_DN=cn=UserName,DC=org,DC=company,DC=ru
 LDAP_SEARCH_BIND_PASSWORD=PassUserForUserName
 LDAP_USERNAME_ATTRIBUTE=samaccountname
+```
 
 ### Изменение логотипа и надписи
 Поместить *branding.jar* в *<GUACAMOLE_HOME>/extensions/*  
 Надпись меняется в *branding\translations\en.json*.  
 Логотип - файл *branding\images\logo-placeholder.png*.  
 По [мотивам](https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension)
+
+### Обратный прокси и сертификаты LE
+Для защиты канала можно использовать обратный прокси из контейнера [umputun/nginx-le](https://github.com/nginx-le/nginx-le) и basic авторизацию.  
+Для этого создать файл *.htpasswd* и поместить в *${DATA_PATH}/nginx-le/etc/*.  
+Скопировать *service.conf* в *${DATA_PATH}/nginx-le/etc/*.  
+Заполнить параметры в *.env*.  
+```
+LE_FQDN=fqdn.domain.spb.ru,fqdn2.ru
+LE_EMAIL=user@fqdn.domain.spb.ru
+# timezone
+TZ=Europe/Moscow
+# адрес и порт на котором будет отвечать nginx, обязателен должен быть доступен из интернет
+LETS_HTTP_IP_PORT=xx.yy.zz.aa:80
+LETS_HTTPS_IP_PORT=xx.yy.zz.aa:443
+```
