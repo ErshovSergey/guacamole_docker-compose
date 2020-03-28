@@ -1,6 +1,33 @@
 version: '2.1'
 
 services:
+
+  nginx:
+    image: umputun/nginx-le:latest
+    hostname: nginx
+    restart: always
+    container_name: nginx
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    volumes:
+      - ${DATA_PATH}/nginx-le/etc/.htpasswd:/etc/nginx/.htpasswd
+      - ${DATA_PATH}/nginx-le/etc/ssl:/etc/nginx/ssl
+      - ${DATA_PATH}/nginx-le/etc/service-example.conf:/etc/nginx/service.conf
+    ports:
+      - "80:80"
+      - "443:443"
+
+    environment:
+      - TZ=${TZ}
+      - LETSENCRYPT=true
+      - LE_EMAIL=${LE_EMAIL}
+      - LE_FQDN=${LE_FQDN}
+
   mysql:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
@@ -25,8 +52,8 @@ services:
     volumes:
       - "${DATA_PATH}/record_session:/opt/record_session"
     restart: always
-#    logging:
-#      driver: none
+    logging:
+      driver: none
 
 #docker run --name guacamole     --link guacd:guacd         -d -p 8081:8080 guacamole/guacamole
   guacamole:
@@ -37,7 +64,6 @@ services:
     ports:
       -  "${HTTP_IP}:${HTTP_PORT}:8080"
     depends_on:
-#      - mysql
       - guacd
 
     environment:
@@ -59,6 +85,5 @@ services:
     volumes:
       - "${DATA_PATH}/init.sql:/init.sql"
       - "${DATA_PATH}/GUACAMOLE_HOME:/opt/GUACAMOLE_HOME"
-#    logging:
-#      driver: none
-
+    logging:
+      driver: none
