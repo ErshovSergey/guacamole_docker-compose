@@ -87,3 +87,7 @@ TZ=Europe/Moscow
 LETS_HTTP_IP_PORT=xx.yy.zz.aa:80
 LETS_HTTPS_IP_PORT=xx.yy.zz.aa:443
 ```
+### Обновить образы контейнеров
+```
+docker-compose pull
+```
