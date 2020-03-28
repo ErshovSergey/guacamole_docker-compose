@@ -76,7 +76,7 @@ LDAP_USERNAME_ATTRIBUTE=samaccountname
 ### Обратный прокси и сертификаты LE
 Для защиты канала можно использовать обратный прокси из контейнера [umputun/nginx-le](https://github.com/nginx-le/nginx-le) и basic авторизацию.  
 Для этого создать файл *.htpasswd* и поместить в *${DATA_PATH}/nginx-le/etc/*.  
-Скопировать *service.conf* в *${DATA_PATH}/nginx-le/etc/*.  
+Скопировать *nginx-le/service.conf* в *${DATA_PATH}/nginx-le/etc/*.  
 Заполнить параметры в *.env*.  
 ```
 LE_FQDN=fqdn.domain.spb.ru,fqdn2.ru
