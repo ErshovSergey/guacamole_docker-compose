@@ -17,7 +17,7 @@ services:
     volumes:
       - ${DATA_PATH}/nginx-le/etc/.htpasswd:/etc/nginx/.htpasswd
       - ${DATA_PATH}/nginx-le/etc/ssl:/etc/nginx/ssl
-      - ${DATA_PATH}/nginx-le/etc/service-example.conf:/etc/nginx/service.conf
+      - ${DATA_PATH}/nginx-le/etc/service.conf:/etc/nginx/service.conf
     ports:
       - "80:80"
       - "443:443"
