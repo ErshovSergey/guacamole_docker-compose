@@ -56,8 +56,17 @@ rm -rf guacamole-auth-duo-1.0.0*
 Настраиваем по [Duo two-factor authentication](http://guacamole.apache.org/doc/gug/duo-auth.html).  
 Файл *guacamole.properties* помещаем в ${DATA_PATH}/GUACAMOLE_HOME/.  
 
+### Авторизация из MS Active Directory
+Заполнить в *.env* параметры
+LDAP_HOSTNAME=192.168.XX.YY
+LDAP_USER_BASE_DN=DC=org,DC=company,DC=ru
+LDAP_GROUP_BASE_DN=DC=org,DC=company,DC=ru
+LDAP_SEARCH_BIND_DN=cn=UserName,DC=org,DC=company,DC=ru
+LDAP_SEARCH_BIND_PASSWORD=PassUserForUserName
+LDAP_USERNAME_ATTRIBUTE=samaccountname
+
 ### Изменение логотипа и надписи
-Поместить branding.jar в <GUACAMOLE_HOME>/extensions/  
-Надпись меняется в branding\translations\en.json.  
-Логотип - файл branding\images\logo-placeholder.png.  
+Поместить *branding.jar* в *<GUACAMOLE_HOME>/extensions/*  
+Надпись меняется в *branding\translations\en.json*.  
+Логотип - файл *branding\images\logo-placeholder.png*.  
 По [мотивам](https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension)
