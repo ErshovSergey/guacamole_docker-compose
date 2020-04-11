@@ -1,33 +1,15 @@
 version: '2.1'
+networks:
+  app_net:
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.17.0/24
+        gateway: 172.16.17.254
 
 services:
-
-  nginx:
-    image: umputun/nginx-le:latest
-    hostname: nginx
-    restart: always
-    container_name: nginx
-
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "5"
-
-    volumes:
-      - ${DATA_PATH}/nginx-le/etc/.htpasswd:/etc/nginx/.htpasswd
-      - ${DATA_PATH}/nginx-le/etc/ssl:/etc/nginx/ssl
-      - ${DATA_PATH}/nginx-le/etc/service.conf:/etc/nginx/service.conf
-    ports:
-      - "80:80"
-      - "443:443"
-
-    environment:
-      - TZ=${TZ}
-      - LETSENCRYPT=true
-      - LE_EMAIL=${LE_EMAIL}
-      - LE_FQDN=${LE_FQDN}
-
   mysql:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
@@ -43,6 +25,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      app_net:
 
 
 # docker run --name guacd -d guacamole/guacd
@@ -54,10 +38,16 @@ services:
     restart: always
     logging:
       driver: none
+    networks:
+      app_net:
 
 #docker run --name guacamole     --link guacd:guacd         -d -p 8081:8080 guacamole/guacamole
   guacamole:
-    image: guacamole/guacamole
+#    image: guacamole/guacamole
+    build:
+      context: ./guacamole
+      dockerfile: Dockerfile
+
     container_name: "${COMPOSE_PROJECT_NAME}_guacamole"
     links:
       - guacd
@@ -87,3 +77,5 @@ services:
       - "${DATA_PATH}/GUACAMOLE_HOME:/opt/GUACAMOLE_HOME"
     logging:
       driver: none
+    networks:
+      app_net:

@@ -1,0 +1,29 @@
+version: '2.1'
+services:
+  nginx:
+    image: umputun/nginx-le:latest
+    hostname: nginx
+    restart: always
+    container_name: nginx
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+    volumes:
+      - ${DATA_PATH}/nginx-le/etc/.htpasswd:/etc/nginx/.htpasswd
+      - ${DATA_PATH}/nginx-le/etc/ssl:/etc/nginx/ssl
+      - ${DATA_PATH}/nginx-le/etc/service.conf:/etc/nginx/service.conf
+    ports:
+      - "80:80"
+      - "443:443"
+
+    environment:
+      - TZ=${TZ}
+      - LETSENCRYPT=true
+      - LE_EMAIL=${LE_EMAIL}
+      - LE_FQDN=${LE_FQDN}
+    networks:
+      app_net:

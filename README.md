@@ -10,8 +10,13 @@
 Параметры для запуска настраиваются в файле *.env* (переименовать *.env-sample* в *.env*)  
 
 ### Запуск  
+####  
 ```
 docker-compose up --build -d --remove-orphans --force-recreate
+```
+#### С использованием reverse proxy
+```shell
+docker-compose -f docker-compose.yml -f docker-compose_nginx-le.yml up --build -d --remove-orphans --force-recreate
 ```
 
 ### Остановка  
