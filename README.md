@@ -92,6 +92,12 @@ TZ=Europe/Moscow
 LETS_HTTP_IP_PORT=xx.yy.zz.aa:80
 LETS_HTTPS_IP_PORT=xx.yy.zz.aa:443
 ```
+#### IP клиента в логах guacamole при использовании reverse proxy
+При доступе через reverse proxy в логах guacamole отображается ip адрес proxy сервера.  
+Чтобы отображался ip адрес клиента необходимо:  
+- на proxy сервере передавать адрес клиента, [подробнее](https://guacamole.apache.org/doc/gug/proxying-guacamole.html#proxying-with-nginx). Для этого добавляем адрес прокси в настройки образа docker guacamole - файл [guacamole/Dockerfile](guacamole/Dockerfile)  
+- в guacamole указать адрес proxy сервера, [подробнее](https://guacamole.apache.org/doc/gug/proxying-guacamole.html#tomcat-remote-ip). Параметры сети docker-compose задаются в файле [docker-compose.yml](/docker-compose.yml).  
+
 ### Обновить образы контейнеров
 ```
 docker-compose pull
