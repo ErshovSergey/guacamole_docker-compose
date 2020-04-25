@@ -27,3 +27,4 @@ services:
       - LE_FQDN=${LE_FQDN}
     networks:
       app_net:
+        ipv4_address: 172.16.17.1

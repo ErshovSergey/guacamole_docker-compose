@@ -31,13 +31,17 @@ services:
 
 # docker run --name guacd -d guacamole/guacd
   guacd:
-    image: guacamole/guacd
+#    image: guacamole/guacd
+    build:
+      context: ./guacd
+      dockerfile: Dockerfile
+
     container_name: "${COMPOSE_PROJECT_NAME}_guacd"
     volumes:
       - "${DATA_PATH}/record_session:/opt/record_session"
     restart: always
-    logging:
-      driver: none
+#    logging:
+#      driver: none
     networks:
       app_net:
 
