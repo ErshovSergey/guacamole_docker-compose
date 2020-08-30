@@ -99,6 +99,18 @@ LETS_HTTPS_IP_PORT=xx.yy.zz.aa:443
 - в guacamole указать адрес proxy сервера, [подробнее](https://guacamole.apache.org/doc/gug/proxying-guacamole.html#tomcat-remote-ip). Параметры сети docker-compose задаются в файле [docker-compose.yml](/docker-compose.yml).  
 
 ### Обновить образы контейнеров
+Остановить и удалить контейнеры  
+```
+docker stop guacamole_guacamole guacamole_guacd
+docker image rm guacamole/guacd guacamole/guacamole
+```
+Если контейнры не удается удалить, то можно попробовать удалить неиспользуемые контейнеры  
+```
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+```
+Пересоздать контейнеры - смотри пункт **"Запуск"**  
+
+Для обновления стандартных контейнеров (mysql, nginx) выполнить  
 ```
 docker-compose pull
 ```
