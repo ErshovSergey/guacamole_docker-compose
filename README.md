@@ -113,4 +113,7 @@ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 Для обновления стандартных контейнеров (mysql, nginx) выполнить  
 ```
 docker-compose pull
+docker pull guacamole/guacd
+docker pull guacamole/guacamole
+
 ```
