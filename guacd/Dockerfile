@@ -1,7 +1,9 @@
-FROM guacamole/guacd
+#FROM guacamole/guacd:latest
+FROM guacamole/guacd:1.4.0
 
+USER root
 RUN  \
-  apt-get update -qqy \
+  apt-get update -qy \
   && apt-get install -yqq ghostscript \
   && apt-get autoremove -qqy \
   && apt-get clean \

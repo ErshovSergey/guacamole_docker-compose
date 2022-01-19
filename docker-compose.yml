@@ -11,15 +11,19 @@ networks:
 
 services:
   mysql:
-    image: mysql:5.7
+#    image: mysql:5.7.36
+    image: mysql
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - "${DATA_PATH}/mysql_data:/var/lib/mysql"
       - "${DATA_PATH}/init.sql:/init.sql"
     restart: always
     container_name: "${COMPOSE_PROJECT_NAME}_mysql"
-    logging:
-      driver: none
+    hostname: "${COMPOSE_PROJECT_NAME}_mysql"
+#    hostname: mysql
+
+#    logging:
+#      driver: none
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -37,6 +41,7 @@ services:
       dockerfile: Dockerfile
 
     container_name: "${COMPOSE_PROJECT_NAME}_guacd"
+    hostname: "${COMPOSE_PROJECT_NAME}_guacd"
     volumes:
       - "${DATA_PATH}/record_session:/opt/record_session"
     restart: always
@@ -53,6 +58,7 @@ services:
       dockerfile: Dockerfile
 
     container_name: "${COMPOSE_PROJECT_NAME}_guacamole"
+    hostname: "${COMPOSE_PROJECT_NAME}_guacamole"
     links:
       - guacd
     ports:
@@ -79,7 +85,7 @@ services:
     volumes:
       - "${DATA_PATH}/init.sql:/init.sql"
       - "${DATA_PATH}/GUACAMOLE_HOME:/opt/GUACAMOLE_HOME"
-    logging:
-      driver: none
+#    logging:
+#      driver: none
     networks:
       app_net:
