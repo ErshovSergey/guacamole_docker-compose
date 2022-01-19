@@ -41,17 +41,19 @@ docker exec -i -t guacamole_mysql bash -c 'mysql -uroot -p${MYSQL_ROOT_PASSWORD}
 Логин и пароль по умолчанию *guacadmin*  
 
 ### Второй фактор TOTP для пользователей  
-Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*
-Для версии 1.2.0
+Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*  
+Актуальную версию брать на [guacamole.apache.org/releases/](https://guacamole.apache.org/releases/)  
+Для версии 1.2.0  
 ```
 wget http://mirror.linux-ia64.org/apache/guacamole/1.2.0/binary/guacamole-auth-totp-1.2.0.tar.gz
 tar -xzvf guacamole-auth-totp-1.2.0.tar.gz
 mv guacamole-auth-totp-1.2.0/guacamole-auth-totp-1.2.0.jar ${DATA_PATH}/GUACAMOLE_HOME/extensions/
 rm -rf guacamole-auth-totp-1.*
 ```
+Версия должна соответствовать версии сервера или быть старее.  
 
 ### Использование Duo
-Регистрируемся на [duosecurity.com](https://duosecurity.com/).  
+Регистрируемся на [duosecurity.com](https://duosecurity.com/).   
 Для версии 1.0.0  
 ```
 wget http://apache-mirror.rbc.ru/pub/apache/guacamole/1.0.0/binary/guacamole-auth-duo-1.0.0.tar.gz
