@@ -26,20 +26,21 @@ docker-compose down --remove-orphans
 
 ### Если при запуске "белый экран" вместо авторизации  
 То наверное это первый запуск и надо инициализировать БД, для этого  
-#### Получаем из контейнера с *guacamole*  скрипт для инициализации БД  
+#### Дождаться окончания инициализации Mysql  
+#### Получчить  из контейнера с *guacamole*  скрипт для инициализации БД  
 ```
 docker exec -i -t guacamole_guacamole bash -c "/opt/guacamole/bin/initdb.sh --mysql > /init.sql/initdb.sql"
 ```
-#### Применяем скрипт к контейнеру *mysql*  
+#### Применить скрипт к контейнеру *mysql*  
 ```
 docker exec -i -t guacamole_mysql bash -c 'mysql -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < /init.sql/initdb.sql'
 ```
 
-### Первый вход 
+### Первый вход  
 Ссылка http://ip_addr/guacamole/   
 Логин и пароль по умолчанию *guacadmin*  
 
-### Второй фактор TOTP для пользователей
+### Второй фактор TOTP для пользователей  
 Необходимо поместить plugin *guacamole-auth-totp* в папку *${DATA_PATH}/extensions*
 Для версии 1.2.0
 ```
